@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create Group</title>
+</head>
+<body>
+    <h2>Create Email Group</h2>
+    <form id="groupForm">
+        <input type="text" name="group_name" placeholder="Group Name" required><br><br>
+        <input type="text" name="name" placeholder="Contact Name"><br><br>
+        <input type="email" name="email" placeholder="Email" required><br><br>
+        <input type="text" name="phone" placeholder="Phone"><br><br>
+        <input type="text" name="remark" placeholder="Remark"><br><br>
+        <button type="submit">Save Group</button>
+    </form>
+
+    <div id="result"></div>
+
+    <script>
+    document.getElementById('groupForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const formData = new FormData(this);
+
+        fetch('create_group.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(res => res.json())
+        .then(data => {
+            document.getElementById('result').innerText = data.message;
+        })
+        .catch(err => {
+            document.getElementById('result').innerText = '❌ Error submitting form.';
+        });
+    });
+    </script>
+</body>
+</html>
